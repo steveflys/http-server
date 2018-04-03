@@ -1,0 +1,5 @@
+#!/Users/stevenstarwalt/codefellows/401/sockets/ENV/bin/python3
+# encoding: utf-8
+
+from cowpy import cow
+cow.main()
