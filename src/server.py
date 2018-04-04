@@ -1,6 +1,7 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import json
+from cowpy import cow
 # import sys
 
 
@@ -16,26 +17,32 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(b'''<!DOCTYPE html>
 <html>
 <head>
-    <title> cowsay </title>
+    <title> cow </title>
 </head>
 <body>
     <header>
         <nav>
+        Click on the link to procede.
         <ul>
             <li><a href="/cowsay">cowsay</a></li>
         </ul>
         </nav>
-    <header>
-    <main>
-        <!-- project description -->
-    </main>
-</body>
-</html>''')
-            return
+    <header>''')
+        
+        elif parsed_path.path == '/cowsay':
+            mutilated = cow.Mutilated()
+            msg = mutilated.milk('This is a cow after running thru a combine. If you want to set your own message replace cowsay in the address bar with: cow?msg=(your message here)')
+            
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(str.encode(msg))
 
-        elif parsed_path.path == './test':
+        elif parsed_path.path == '/cow':
             try:
-                cat = json.loads(parse_qs['category'][0])
+                # import pdb; pdb.set_trace()
+                text = parsed_qs['msg'][0]
+                mutilated = cow.Mutilated()
+                msg = mutilated.milk(text)
             except KeyError:
                 self.send_response(400)
                 self.end_headers()
@@ -44,7 +51,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(b'We did the thing with the qs')
+            self.wfile.write(str.encode(msg))
 
         else:
             self.send_response(404)
