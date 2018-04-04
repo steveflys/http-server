@@ -1,4 +1,6 @@
 [
   "test_server.py::test_server_sends_200_response",
-  "test_server.py::test_server_sends_404_response"
+  "test_server.py::test_server_sends_404_response",
+  "test_server.py::test_server_sends_msg_for_cowsay_page",
+  "test_server.py::test_server_sends_msg_for_custom_msg_page"
 ]

@@ -1,13 +1,14 @@
 from . import server
 import pytest
-from threading import Thread
+from multiprocessing import Process
 
 
 @pytest.fixture(scope='module', autouse=True)
 def server_setup():
     instance = server.create_server()
 
-    process = Thread(target=instance.serve_forever)
-    process.setDaemon(True)
+    process = Process(target=instance.serve_forever)
 
-    process.start()
+    yield process.start()
+
+    process.terminate()
