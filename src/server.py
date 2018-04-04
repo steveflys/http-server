@@ -31,7 +31,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         
         elif parsed_path.path == '/cowsay':
             mutilated = cow.Mutilated()
-            msg = mutilated.milk('This is a cow after running thru a combine. If you want to set your own message replace cowsay in the address bar with: cow?msg=(your message here)')
+            msg = mutilated.milk('This is a cow after running thru a combine. If you want to set your own message here replace cowsay in the address bar with: cow?msg=(your message here)')
             
             self.send_response(200)
             self.end_headers()
@@ -46,7 +46,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             except KeyError:
                 self.send_response(400)
                 self.end_headers()
-                self.wfile.write(b'You did a bad thing')
+                self.wfile.write(b'You did something wrong, please stop')
                 return
         
             self.send_response(200)
@@ -56,7 +56,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         else:
             self.send_response(404)
             self.end_headers()
-            self.wfile.write(b'Not found')
+            self.wfile.write(b'404, This is not the page you are looking for')
 
     def do_POST(self):
         self.send_response(200)
